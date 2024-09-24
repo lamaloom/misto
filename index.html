@@ -3,11 +3,20 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | misto</title>
+    <title>misto</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
   </head>
+  <style>
+    #unity-container .unity-splash-screen {
+        display: none !important;
+    }
+    </style>
   <body>
+	         <!--<div class="pdf-container">
+                <a href="Alter_stamp.pdf" target="_blank">Interviews</a> 
+              
+            </div>-->
     <div id="unity-container" class="unity-desktop">
       <canvas id="unity-canvas" width=960 height=600></canvas>
       <div id="unity-loading-bar">
@@ -25,13 +34,14 @@
         <div id="unity-build-title">misto</div>
       </div>
     </div>
+
     <script>
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/Misto.loader.js";
+      var loaderUrl = buildUrl + "/misto.loader.js";
       var config = {
-        dataUrl: buildUrl + "/Misto.data.unityweb",
-        frameworkUrl: buildUrl + "/Misto.framework.js.unityweb",
-        codeUrl: buildUrl + "/Misto.wasm.unityweb",
+        dataUrl: buildUrl + "/misto.data.unityweb",
+        frameworkUrl: buildUrl + "/misto.framework.js.unityweb",
+        codeUrl: buildUrl + "/misto.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "lamana",
         productName: "misto",
@@ -45,17 +55,8 @@
       var fullscreenButton = document.querySelector("#unity-fullscreen-button");
       var mobileWarning = document.querySelector("#unity-mobile-warning");
 
-      // By default Unity keeps WebGL canvas render target size matched with
-      // the DOM size of the canvas element (scaled by window.devicePixelRatio)
-      // Set this to false if you want to decouple this synchronization from
-      // happening inside the engine, and you would instead like to size up
-      // the canvas DOM size and WebGL render target sizes yourself.
-      // config.matchWebGLToCanvasSize = false;
-
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         container.className = "unity-mobile";
-        // Avoid draining fillrate performance on mobile devices,
-        // and default/override low DPI mode on mobile browsers.
         config.devicePixelRatio = 1;
         mobileWarning.style.display = "block";
         setTimeout(() => {
@@ -82,11 +83,20 @@
         });
       };
       document.body.appendChild(script);
+
+      function downloadPDF(pdfFileName) {
+        var link = document.createElement("a");  // Создаём элемент ссылки
+        link.href = "StreamingAssets/" + pdfFileName;  // Задаём путь к файлу PDF
+        link.download = pdfFileName;  // Устанавливаем атрибут download, чтобы указать браузеру скачать файл
+        document.body.appendChild(link);  // Добавляем ссылку в DOM
+        link.click();  // Программно инициируем клик по ссылке, чтобы вызвать скачивание файла
+        document.body.removeChild(link);  // Удаляем ссылку из DOM, чтобы избежать накопления ненужных элементов
+      }
     </script>
-    <script>
-  function openInstagram(url) {
-    window.open(url, '_blank');
-  }
+<script type="text/javascript">
+    function openInstagram(url) {
+        window.open(url, '_blank');
+    }
 </script>
 
   </body>
